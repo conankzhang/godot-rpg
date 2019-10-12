@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Battle.cs" type="Script" id=1]
 [ext_resource path="res://Images/Dungeon.png" type="Texture" id=2]
 [ext_resource path="res://Images/Mobile RPG Mockup.png" type="Texture" id=3]
-[ext_resource path="res://Enemy.cs" type="Script" id=4]
-[ext_resource path="res://Images/Rat.png" type="Texture" id=5]
+[ext_resource path="res://Enemy.tscn" type="PackedScene" id=4]
 
 [node name="Battle" type="Node"]
 script = ExtResource( 1 )
@@ -18,24 +17,15 @@ modulate = Color( 1, 1, 1, 0.211765 )
 position = Vector2( 45, 80 )
 texture = ExtResource( 3 )
 
-[node name="Enemy" type="Node2D" parent="."]
+[node name="Enemy" parent="." instance=ExtResource( 4 )]
 position = Vector2( 46, 33 )
-script = ExtResource( 4 )
-
-[node name="Sprite" type="Sprite" parent="Enemy"]
-texture = ExtResource( 5 )
-
-[node name="HPLabel" type="Label" parent="Enemy"]
-margin_left = -21.0
-margin_top = -29.0
-margin_right = 19.0
-margin_bottom = -15.0
-text = "25 HP"
-align = 1
 
 [node name="UI" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="StatsPanel" type="Panel" parent="UI"]
 margin_left = 3.0
@@ -55,4 +45,5 @@ margin_left = -2.0
 margin_top = 138.0
 margin_right = 92.0
 margin_bottom = 162.0
+[connection signal="Died" from="Enemy" to="." method="_on_Enemy_Died"]
 [connection signal="pressed" from="UI/SwordButton" to="." method="_on_Button_pressed"]
