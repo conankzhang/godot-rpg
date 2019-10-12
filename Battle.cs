@@ -3,15 +3,15 @@ using System;
 
 public class Battle : Node
 {
-    private Label healthLabel;
+    private Enemy enemy;
 
     public override void _Ready()
     {
-        healthLabel = GetNode<Label>("Enemy/HPLabel");
+        enemy = GetNode<Enemy>("Enemy");
     }
 
     private void _on_Button_pressed()
     {
-        healthLabel.SetText("15 hp");
+        enemy.Health -= 4;
     }
 }
