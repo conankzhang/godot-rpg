@@ -33,9 +33,14 @@ public class Enemy : Node2D
             else
             {
                 animationPlayer.Play("Shake");
+                Attack();
             }
         }
     }
 
-
+    private async void Attack()
+    {
+        await ToSignal(animationPlayer, "animation_finished");
+        animationPlayer.Play("Attack");
+    }
 }

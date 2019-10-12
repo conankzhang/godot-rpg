@@ -1,7 +1,23 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Enemy.cs" type="Script" id=1]
 [ext_resource path="res://Images/Rat.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=2]
+resource_name = "Attack"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -4 ), Vector2( 0, 9 ), Vector2( 0, 0 ) ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "Shake"
@@ -35,4 +51,5 @@ text = "25 HP"
 align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attack = SubResource( 2 )
 anims/Shake = SubResource( 1 )
