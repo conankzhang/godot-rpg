@@ -42,5 +42,11 @@ public class Enemy : Node2D
     {
         await ToSignal(animationPlayer, "animation_finished");
         animationPlayer.Play("Attack");
+
+        await ToSignal(animationPlayer, "animation_finished");
+
+        Node battle = GetTree().CurrentScene;
+        PlayerStats playerStats = (PlayerStats)battle.FindNode("PlayerStats");
+        playerStats.CurrentHealth -= 3;
     }
 }

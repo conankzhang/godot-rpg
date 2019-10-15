@@ -1,23 +1,28 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Battle.cs" type="Script" id=1]
-[ext_resource path="res://Images/Dungeon.png" type="Texture" id=2]
-[ext_resource path="res://Images/Mobile RPG Mockup.png" type="Texture" id=3]
-[ext_resource path="res://Enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://PlayerStats.cs" type="Script" id=2]
+[ext_resource path="res://Images/Dungeon.png" type="Texture" id=3]
+[ext_resource path="res://Images/Mobile RPG Mockup.png" type="Texture" id=4]
+[ext_resource path="res://Enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://StatsPanel.cs" type="Script" id=6]
 
 [node name="Battle" type="Node"]
 script = ExtResource( 1 )
 
+[node name="PlayerStats" type="Node" parent="."]
+script = ExtResource( 2 )
+
 [node name="Dungeon" type="Sprite" parent="."]
 position = Vector2( 45, 80 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
 [node name="Mobile RPG Mockup" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.211765 )
 position = Vector2( 45, 80 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
-[node name="Enemy" parent="." instance=ExtResource( 4 )]
+[node name="Enemy" parent="." instance=ExtResource( 5 )]
 position = Vector2( 46, 33 )
 
 [node name="UI" type="Control" parent="."]
@@ -32,18 +37,108 @@ margin_left = 3.0
 margin_top = 47.0
 margin_right = 87.0
 margin_bottom = 70.0
+script = ExtResource( 6 )
 
-[node name="SwordButton" type="Button" parent="UI"]
-margin_left = 9.0
-margin_top = 73.0
-margin_right = 41.0
-margin_bottom = 86.0
-text = "SWORD"
+[node name="StatsContainer" type="HBoxContainer" parent="UI/StatsPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Health" type="Label" parent="UI/StatsPanel/StatsContainer"]
+margin_top = 2.0
+margin_right = 25.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+text = "HP
+25"
+align = 1
+
+[node name="ActionPoints" type="Label" parent="UI/StatsPanel/StatsContainer"]
+margin_left = 29.0
+margin_top = 2.0
+margin_right = 54.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+text = "AP
+3"
+align = 1
+
+[node name="MagicPoints" type="Label" parent="UI/StatsPanel/StatsContainer"]
+margin_left = 58.0
+margin_top = 2.0
+margin_right = 84.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+text = "MP
+10"
+align = 1
 
 [node name="TextboxPanel" type="Panel" parent="UI"]
 margin_left = -2.0
 margin_top = 138.0
 margin_right = 92.0
 margin_bottom = 162.0
+
+[node name="BattleActionButtons" type="GridContainer" parent="UI"]
+margin_left = 9.0
+margin_top = 73.0
+margin_right = 81.0
+margin_bottom = 134.0
+custom_constants/vseparation = 3
+custom_constants/hseparation = 8
+columns = 2
+
+[node name="SwordButton" type="Button" parent="UI/BattleActionButtons"]
+margin_right = 32.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 32, 13 )
+text = "SWORD"
+
+[node name="TestButton" type="Button" parent="UI/BattleActionButtons"]
+margin_left = 40.0
+margin_right = 72.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 32, 13 )
+
+[node name="TestButton2" type="Button" parent="UI/BattleActionButtons"]
+margin_top = 16.0
+margin_right = 32.0
+margin_bottom = 29.0
+rect_min_size = Vector2( 32, 13 )
+
+[node name="TestButton3" type="Button" parent="UI/BattleActionButtons"]
+margin_left = 40.0
+margin_top = 16.0
+margin_right = 72.0
+margin_bottom = 29.0
+rect_min_size = Vector2( 32, 13 )
+
+[node name="TestButton4" type="Button" parent="UI/BattleActionButtons"]
+margin_top = 32.0
+margin_right = 32.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 32, 13 )
+
+[node name="TestButton5" type="Button" parent="UI/BattleActionButtons"]
+margin_left = 40.0
+margin_top = 32.0
+margin_right = 72.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 32, 13 )
+
+[node name="TestButton6" type="Button" parent="UI/BattleActionButtons"]
+margin_top = 48.0
+margin_right = 32.0
+margin_bottom = 61.0
+rect_min_size = Vector2( 32, 13 )
+
+[node name="TestButton7" type="Button" parent="UI/BattleActionButtons"]
+margin_left = 40.0
+margin_top = 48.0
+margin_right = 72.0
+margin_bottom = 61.0
+rect_min_size = Vector2( 32, 13 )
+[connection signal="ActionPointsChanged" from="PlayerStats" to="UI/StatsPanel" method="_on_PlayerStats_ActionPointsChanged"]
+[connection signal="HealthChanged" from="PlayerStats" to="UI/StatsPanel" method="_on_PlayerStats_HealthChanged"]
+[connection signal="MagicPointsChanged" from="PlayerStats" to="UI/StatsPanel" method="_on_PlayerStats_MagicPointsChanged"]
 [connection signal="Died" from="Enemy" to="." method="_on_Enemy_Died"]
-[connection signal="pressed" from="UI/SwordButton" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="UI/BattleActionButtons/SwordButton" to="." method="_on_Button_pressed"]

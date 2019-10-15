@@ -4,18 +4,18 @@ using System;
 public class Battle : Node
 {
     private Enemy enemy;
-    private Button swordButton;
+    private GridContainer battleActionButtons;
 
     public override void _Ready()
     {
         enemy = GetNode<Enemy>("Enemy");
-        swordButton = GetNode<Button>("UI/SwordButton");
+        battleActionButtons = GetNode<GridContainer>("UI/BattleActionButtons");
     }
 
     private void _on_Enemy_Died()
     {
         enemy = null;
-        swordButton.Hide();
+        battleActionButtons.Hide();
     }
 
     private void _on_Button_pressed()
