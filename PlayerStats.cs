@@ -32,7 +32,7 @@ public class PlayerStats : Node
         get => currentHealth;
         set
         {
-            currentHealth = Mathf.Min(value, maxHealth);
+            currentHealth = Mathf.Clamp(value, 0, maxHealth);
             EmitSignal("HealthChanged", currentHealth);
         }
     }
@@ -41,8 +41,13 @@ public class PlayerStats : Node
         get => currentActionPoints;
         set
         {
-            currentActionPoints = Mathf.Min(value, maxActionPoints);
+            currentActionPoints = Mathf.Clamp(value, 0, MaxActionPoints);
             EmitSignal("ActionPointsChanged", currentActionPoints);
+
+            if(currentActionPoints == 0)
+            {
+                EmitSignal("TurnEnded");
+            }
         }
     }
     public int CurrentMagicPoints
@@ -50,14 +55,16 @@ public class PlayerStats : Node
         get => currentMagicPoints;
         set
         {
-            currentMagicPoints = Mathf.Min(value, maxMagicPoints);
+            currentMagicPoints = Mathf.Clamp(value, 0, maxMagicPoints);
             EmitSignal("MagicPointsChanged", currentMagicPoints);
         }
     }
 
+    public int MaxActionPoints { get => maxActionPoints; }
+
     public override void _Ready()
     {
         CurrentHealth = maxHealth;
-        CurrentActionPoints = maxActionPoints;
+        CurrentActionPoints = MaxActionPoints;
     }
 }
