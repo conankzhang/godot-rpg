@@ -49,11 +49,15 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionButton.cs" />
     <Compile Include="Battle.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="HealActionButton.cs" />
     <Compile Include="PlayerStats.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SlashEffect.cs" />
     <Compile Include="StatsPanel.cs" />
+    <Compile Include="SwordActionButton.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

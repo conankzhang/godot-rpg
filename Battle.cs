@@ -50,13 +50,4 @@ public class Battle : Node
         enemy = null;
         battleActionButtons.Hide();
     }
-
-    private void _on_Button_pressed()
-    {
-        if(enemy != null)
-        {
-            enemy.TakeDamage(4);
-            playerStats.CurrentActionPoints -= 1;
-        }
-    }
 }

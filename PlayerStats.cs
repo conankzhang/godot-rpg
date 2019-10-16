@@ -41,7 +41,7 @@ public class PlayerStats : Node
         get => currentActionPoints;
         set
         {
-            currentActionPoints = Mathf.Clamp(value, 0, MaxActionPoints);
+            currentActionPoints = Mathf.Clamp(value, 0, maxActionPoints);
             EmitSignal("ActionPointsChanged", currentActionPoints);
 
             if(currentActionPoints == 0)
@@ -65,6 +65,7 @@ public class PlayerStats : Node
     public override void _Ready()
     {
         CurrentHealth = maxHealth;
-        CurrentActionPoints = MaxActionPoints;
+        CurrentActionPoints = maxActionPoints;
+        currentMagicPoints = maxMagicPoints;
     }
 }

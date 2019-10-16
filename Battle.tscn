@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Battle.cs" type="Script" id=1]
 [ext_resource path="res://PlayerStats.cs" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://Images/Mobile RPG Mockup.png" type="Texture" id=4]
 [ext_resource path="res://Enemy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://StatsPanel.cs" type="Script" id=6]
+[ext_resource path="res://SwordActionButton.tscn" type="PackedScene" id=7]
+[ext_resource path="res://HealActionButton.tscn" type="PackedScene" id=8]
 
 [node name="Battle" type="Node"]
 script = ExtResource( 1 )
@@ -23,7 +25,7 @@ position = Vector2( 45, 80 )
 texture = ExtResource( 4 )
 
 [node name="Enemy" parent="." instance=ExtResource( 5 )]
-position = Vector2( 46, 33 )
+position = Vector2( 45, 33 )
 
 [node name="UI" type="Control" parent="."]
 anchor_right = 1.0
@@ -87,58 +89,15 @@ custom_constants/vseparation = 3
 custom_constants/hseparation = 8
 columns = 2
 
-[node name="SwordButton" type="Button" parent="UI/BattleActionButtons"]
+[node name="SwordActionButton" parent="UI/BattleActionButtons" instance=ExtResource( 7 )]
 margin_right = 32.0
 margin_bottom = 13.0
-rect_min_size = Vector2( 32, 13 )
-text = "SWORD"
 
-[node name="TestButton" type="Button" parent="UI/BattleActionButtons"]
+[node name="HealActionButton" parent="UI/BattleActionButtons" instance=ExtResource( 8 )]
 margin_left = 40.0
 margin_right = 72.0
 margin_bottom = 13.0
-rect_min_size = Vector2( 32, 13 )
-
-[node name="TestButton2" type="Button" parent="UI/BattleActionButtons"]
-margin_top = 16.0
-margin_right = 32.0
-margin_bottom = 29.0
-rect_min_size = Vector2( 32, 13 )
-
-[node name="TestButton3" type="Button" parent="UI/BattleActionButtons"]
-margin_left = 40.0
-margin_top = 16.0
-margin_right = 72.0
-margin_bottom = 29.0
-rect_min_size = Vector2( 32, 13 )
-
-[node name="TestButton4" type="Button" parent="UI/BattleActionButtons"]
-margin_top = 32.0
-margin_right = 32.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 32, 13 )
-
-[node name="TestButton5" type="Button" parent="UI/BattleActionButtons"]
-margin_left = 40.0
-margin_top = 32.0
-margin_right = 72.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 32, 13 )
-
-[node name="TestButton6" type="Button" parent="UI/BattleActionButtons"]
-margin_top = 48.0
-margin_right = 32.0
-margin_bottom = 61.0
-rect_min_size = Vector2( 32, 13 )
-
-[node name="TestButton7" type="Button" parent="UI/BattleActionButtons"]
-margin_left = 40.0
-margin_top = 48.0
-margin_right = 72.0
-margin_bottom = 61.0
-rect_min_size = Vector2( 32, 13 )
 [connection signal="ActionPointsChanged" from="PlayerStats" to="UI/StatsPanel" method="_on_PlayerStats_ActionPointsChanged"]
 [connection signal="HealthChanged" from="PlayerStats" to="UI/StatsPanel" method="_on_PlayerStats_HealthChanged"]
 [connection signal="MagicPointsChanged" from="PlayerStats" to="UI/StatsPanel" method="_on_PlayerStats_MagicPointsChanged"]
 [connection signal="Died" from="Enemy" to="." method="_on_Enemy_Died"]
-[connection signal="pressed" from="UI/BattleActionButtons/SwordButton" to="." method="_on_Button_pressed"]
