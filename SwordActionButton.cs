@@ -26,7 +26,7 @@ public class SwordActionButton : ActionButton
     private void CreateSlashEffect(Vector2 position)
     {
         Node2D slashEffect = slashEffectScene.Instance() as Node2D;
-        AddChild(slashEffect);
+        GetTree().CurrentScene.AddChild(slashEffect);
         slashEffect.Position = position;
     }
 }
