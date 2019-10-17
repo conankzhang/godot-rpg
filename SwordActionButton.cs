@@ -12,11 +12,11 @@ public class SwordActionButton : ActionButton
     protected override void _on_pressed()
     {
         Node currentScene = GetTree().CurrentScene;
-        Enemy enemy = (Enemy)currentScene.FindNode("Enemy");
-        PlayerStats playerStats = (PlayerStats)currentScene.FindNode("PlayerStats");
+        Enemy enemy = currentScene.GetNode("EnemyPosition/Enemy") as Enemy;
+        PlayerStats playerStats = currentScene.FindNode("PlayerStats") as PlayerStats;
         if(enemy != null && playerStats != null)
         {
-            CreateSlashEffect(enemy.Position);
+            CreateSlashEffect(enemy.GetGlobalPosition());
             enemy.TakeDamage(4);
             playerStats.CurrentMagicPoints += 2;
             playerStats.CurrentActionPoints -= 1;

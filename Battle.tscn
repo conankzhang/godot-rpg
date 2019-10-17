@@ -1,46 +1,81 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Battle.cs" type="Script" id=1]
-[ext_resource path="res://PlayerStats.cs" type="Script" id=2]
-[ext_resource path="res://Images/Dungeon.png" type="Texture" id=3]
-[ext_resource path="res://Images/Mobile RPG Mockup.png" type="Texture" id=4]
-[ext_resource path="res://Enemy.tscn" type="PackedScene" id=5]
-[ext_resource path="res://StatsPanel.cs" type="Script" id=6]
-[ext_resource path="res://SwordActionButton.tscn" type="PackedScene" id=7]
-[ext_resource path="res://HealActionButton.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Slime.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Rat.tscn" type="PackedScene" id=3]
+[ext_resource path="res://PlayerStats.cs" type="Script" id=4]
+[ext_resource path="res://Images/Dungeon.png" type="Texture" id=5]
+[ext_resource path="res://Images/Mobile RPG Mockup.png" type="Texture" id=6]
+[ext_resource path="res://StatsPanel.cs" type="Script" id=7]
+[ext_resource path="res://SwordActionButton.tscn" type="PackedScene" id=8]
+[ext_resource path="res://HealActionButton.tscn" type="PackedScene" id=9]
+
+[sub_resource type="Animation" id=1]
+resource_name = "FadeToNewRoom"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Fade:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.35, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [node name="Battle" type="Node"]
 script = ExtResource( 1 )
+slime = ExtResource( 2 )
+rat = ExtResource( 3 )
 
 [node name="PlayerStats" type="Node" parent="."]
-script = ExtResource( 2 )
+script = ExtResource( 4 )
 
 [node name="Dungeon" type="Sprite" parent="."]
 position = Vector2( 45, 80 )
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 
 [node name="Mobile RPG Mockup" type="Sprite" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0.211765 )
 position = Vector2( 45, 80 )
-texture = ExtResource( 4 )
+texture = ExtResource( 6 )
 
-[node name="Enemy" parent="." instance=ExtResource( 5 )]
-position = Vector2( 45, 33 )
+[node name="EnemyPosition" type="Position2D" parent="."]
+position = Vector2( 45, 29 )
 
 [node name="UI" type="Control" parent="."]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="CenterContainer" type="CenterContainer" parent="UI"]
+editor/display_folded = true
+margin_right = 90.0
+margin_bottom = 47.0
+
+[node name="NextRoomButton" type="Button" parent="UI/CenterContainer"]
+visible = false
+margin_left = 10.0
+margin_top = 17.0
+margin_right = 80.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 70, 13 )
+text = "ENTER NEXT ROOM"
+
 [node name="StatsPanel" type="Panel" parent="UI"]
+editor/display_folded = true
 margin_left = 3.0
 margin_top = 47.0
 margin_right = 87.0
 margin_bottom = 70.0
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="StatsContainer" type="HBoxContainer" parent="UI/StatsPanel"]
 anchor_right = 1.0
@@ -82,6 +117,7 @@ margin_right = 92.0
 margin_bottom = 162.0
 
 [node name="BattleActionButtons" type="GridContainer" parent="UI"]
+editor/display_folded = true
 margin_left = 9.0
 margin_top = 73.0
 margin_right = 81.0
@@ -90,15 +126,25 @@ custom_constants/vseparation = 3
 custom_constants/hseparation = 8
 columns = 2
 
-[node name="SwordActionButton" parent="UI/BattleActionButtons" instance=ExtResource( 7 )]
+[node name="SwordActionButton" parent="UI/BattleActionButtons" instance=ExtResource( 8 )]
 margin_right = 32.0
 margin_bottom = 13.0
 
-[node name="HealActionButton" parent="UI/BattleActionButtons" instance=ExtResource( 8 )]
+[node name="HealActionButton" parent="UI/BattleActionButtons" instance=ExtResource( 9 )]
 margin_left = 40.0
 margin_right = 72.0
 margin_bottom = 13.0
+
+[node name="Fade" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeToNewRoom = SubResource( 1 )
 [connection signal="ActionPointsChanged" from="PlayerStats" to="UI/StatsPanel" method="_on_PlayerStats_ActionPointsChanged"]
 [connection signal="HealthChanged" from="PlayerStats" to="UI/StatsPanel" method="_on_PlayerStats_HealthChanged"]
 [connection signal="MagicPointsChanged" from="PlayerStats" to="UI/StatsPanel" method="_on_PlayerStats_MagicPointsChanged"]
-[connection signal="Died" from="Enemy" to="." method="_on_Enemy_Died"]
+[connection signal="pressed" from="UI/CenterContainer/NextRoomButton" to="." method="_on_NextRoomButton_pressed"]

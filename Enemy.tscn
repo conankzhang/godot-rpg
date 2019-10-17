@@ -28,7 +28,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0.4 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ 4 ],
+"args": [  ],
 "method": "DealDamage"
 } ]
 }

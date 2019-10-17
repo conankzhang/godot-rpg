@@ -11,6 +11,9 @@ public class Enemy : Node2D
 
     [Export]
     private int health = 25;
+
+    [Export]
+    private int damage = 4;
     private Label label;
     private AnimationPlayer animationPlayer;
     private PlayerStats playerStats;
@@ -27,9 +30,9 @@ public class Enemy : Node2D
         WaitToAttack(playerStats);
     }
 
-    public void DealDamage(int damageAmount)
+    public void DealDamage()
     {
-        playerStats.CurrentHealth -= damageAmount;
+        playerStats.CurrentHealth -= damage;
     }
 
     public void TakeDamage(int damageAmount)
